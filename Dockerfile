@@ -42,7 +42,7 @@ ARG INSTALL_DEV_DEPS=
 
 COPY --from=ghcr.io/astral-sh/uv:0.7.3 /uv /uvx /bin/
 COPY uv.lock pyproject.toml /code/
-RUN --mount=type=cache,target=/root/.cache/ \
+RUN --mount=type=cache,id=pip-cache,target=/root/.cache/ \
     uv venv $VIRTUAL_ENV && \
     uv sync --locked --no-install-project --no-editable --active ${INSTALL_DEV_DEPS:+--extra dev}
 COPY --parents admin_panel ballsdex LICENSE README.md /code/
